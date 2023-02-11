@@ -1,10 +1,10 @@
 import { IDataMapper } from '@libs/common/infrastructure/mapper/base.mapper';
-import { RepositoryPort } from '@libs/common/port/repository.ports';
 import { Logger } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Model } from 'mongoose';
+import { RepositoryPort } from './repository.ports';
 
-export abstract class MongoBaseRepository<Entity extends AggregateRoot, Schema, Doc>
+export abstract class MongoAbstractRepository<Entity extends AggregateRoot, Schema, Doc>
   implements RepositoryPort<Entity>
 {
   protected readonly logger: Logger = new Logger(this.constructor.name);

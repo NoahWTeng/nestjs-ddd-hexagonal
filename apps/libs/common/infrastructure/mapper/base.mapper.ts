@@ -1,5 +1,5 @@
 import { BaseEntity } from '@libs/common/domain/base.entity';
-import { BaseSchema } from '../dtos/base.schema';
+import { BaseSchema } from '../dao/base.schema';
 
 export interface IDataMapper<Entity, Data> {
   toEntity(data: Data): Entity;
