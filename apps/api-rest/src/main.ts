@@ -56,7 +56,7 @@ async function bootstrap() {
     title: process.env.TITLE,
     description: process.env.DESCRIPTION,
     jsonLimit: process.env.JSON_LIMIT,
-    mongodb: process.env.MONGO_HOST,
+    mongodb: process.env.MONGO_URI,
     redis: process.env.REDIS_HOST,
     cors: process.env.CORS
   });

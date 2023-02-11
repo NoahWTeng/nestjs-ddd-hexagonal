@@ -12,7 +12,7 @@ export class ErrorsInterceptor implements ExceptionFilter {
     if (error.getResponse && error.getResponse()) {
       message = error.getResponse()['message'];
     }
-    let status = error.getStatus();
+    const status = error.getStatus();
 
     response.status(status).json({
       statusCode: status,

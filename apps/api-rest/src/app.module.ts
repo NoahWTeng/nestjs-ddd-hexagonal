@@ -3,20 +3,16 @@ import { config } from 'dotenv';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, RouterModule } from '@nestjs/core';
 import * as redisStore from 'cache-manager-redis-store';
-import { MongooseModule } from '@nestjs/mongoose';
-import { MongooseConfig } from '@libs/database/mongo/mongo-orm.config';
-import { LoggerModule } from 'nestjs-pino';
-import { ErrorsInterceptor } from '@libs/common/interceptors/error.interceptor';
 import { CoreModule } from '@libs/core/core.module';
-import { pinoLoggerConfig } from '@libs/common/logger/logger';
+import { ErrorsInterceptor } from '@libs/common/interceptors/error.interceptor';
+import { DatabaseModule } from '@libs/database/database.module';
+
 
 // CONFIG
 config();
 @Global()
 @Module({
   imports: [
-    LoggerModule.forRoot(pinoLoggerConfig),
-
     ConfigModule.forRoot({
       envFilePath: process.env.NODE_ENV ? `./environments/${process.env.NODE_ENV}.env` : '.env',
       isGlobal: true,
@@ -30,13 +26,10 @@ config();
       }),
     }),
 
-    MongooseModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => MongooseConfig(configService),
-    }),
 
     RouterModule.register([]),
     CoreModule,
+    DatabaseModule
   ],
   providers: [
     {

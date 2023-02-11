@@ -1,5 +1,5 @@
-import { IDataMapper } from '@libs/common/infrastructure/mapper/base.mapper';
-import { RepositoryPort } from '@libs/common/port/repository.ports';
+import { IDataMapper } from 'apps/libs/common/infrastructure/mapper/base.mapper';
+import { RepositoryPort } from 'apps/libs/common/port/repository.ports';
 import { Logger } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Model } from 'mongoose';
@@ -25,7 +25,7 @@ export abstract class MongodbBaseRepository<Entity extends AggregateRoot, Schema
     }
   }
 
-  async findOne(id: number | string, key: string, populate: string = ''): Promise<Entity | undefined> {
+  async findOne(id: number | string, key: string, populate = ''): Promise<Entity | undefined> {
     try {
       const opt = {};
       opt[key] = id;
@@ -53,10 +53,10 @@ export abstract class MongodbBaseRepository<Entity extends AggregateRoot, Schema
   }
 
   async findByQuery(
-    populate: string = '',
-    seleted: string = '',
-    start: string = '',
-    end: string = '',
+    populate = '',
+    seleted = '',
+    start = '',
+    end = '',
   ): Promise<Entity[]> {
     try {
       let data: Schema[] | undefined;
@@ -83,5 +83,7 @@ export abstract class MongodbBaseRepository<Entity extends AggregateRoot, Schema
     }
   }
 
-  async delete(entity: Entity): Promise<void> {}
+  async delete(entity: Entity): Promise<void> {
+    console.log('not imple')
+  }
 }
