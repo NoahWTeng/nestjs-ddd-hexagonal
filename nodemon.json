@@ -1,0 +1,11 @@
+{
+  "restartable": "rs",
+  "ignore": [".git", ".svn", "logs", "pem", "node_modules/**/node_modules", "src/**/*.spec.ts", "public", "dist"],
+  "verbose": true,
+  "watch": ["apps/**/*.ts", "libs/**/*.ts"],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "ts js json",
+  "exec": "ts-node -r tsconfig-paths/register apps/api-rest/src/main.ts"
+}

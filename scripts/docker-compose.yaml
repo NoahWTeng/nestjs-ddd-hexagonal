@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  mongodb:
+    container_name: node-mongodb-query
+    image: mongo:latest
+    ports:
+      - 27018:27018
+    command: mongod --port 27018
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+
+  postgres:
+    container_name: node-postgres-command
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: "redis:alpine"
+    hostname: redis
+    ports:
+      - "6379:6379"
+
+      
+volumes:
+  eventstore-volume-data:
+  eventstore-volume-logs:
