@@ -1,5 +1,5 @@
 import { BaseEntity } from '@libs/common/domain/base.entity';
-import { BaseSchemaDto } from '../dtos/base.schema';
+import { BaseSchema } from '../dtos/base.schema';
 
 export interface IDataMapper<Entity, Data> {
   toEntity(data: Data): Entity;
@@ -7,7 +7,7 @@ export interface IDataMapper<Entity, Data> {
 }
 
 export class BaseMapper {
-  toDataBase(entity: BaseEntity): BaseSchemaDto {
+  toDataBase(entity: BaseEntity): BaseSchema {
     return {
       _id: entity.baseProperties._id,
       createdAt: entity.baseProperties.createdAt,
@@ -15,7 +15,7 @@ export class BaseMapper {
       version: entity.baseProperties.version,
     };
   }
-  toEntityBase(data: BaseSchemaDto): BaseEntity {
+  toEntityBase(data: BaseSchema): BaseEntity {
     return new BaseEntity({
       _id: data._id,
       createdAt: data.createdAt,
