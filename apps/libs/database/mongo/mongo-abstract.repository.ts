@@ -2,10 +2,10 @@ import { IDataMapper } from '@libs/common/infrastructure/mapper/base.mapper';
 import { Logger } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Model } from 'mongoose';
-import { RepositoryPort } from './repository.ports';
+import { MongoRepositoryPort } from './mongo-repository.ports';
 
 export abstract class MongoAbstractRepository<Entity extends AggregateRoot, Schema, Doc>
-  implements RepositoryPort<Entity>
+  implements MongoRepositoryPort<Entity>
 {
   protected readonly logger: Logger = new Logger(this.constructor.name);
 
@@ -52,12 +52,7 @@ export abstract class MongoAbstractRepository<Entity extends AggregateRoot, Sche
     }
   }
 
-  async findByQuery(
-    populate = '',
-    seleted = '',
-    start = '',
-    end = '',
-  ): Promise<Entity[]> {
+  async findByQuery(populate = '', seleted = '', start = '', end = ''): Promise<Entity[]> {
     try {
       let data: Schema[] | undefined;
 
@@ -84,6 +79,6 @@ export abstract class MongoAbstractRepository<Entity extends AggregateRoot, Sche
   }
 
   async delete(entity: Entity): Promise<void> {
-    console.log('not imple')
+    console.log('not imple');
   }
 }
