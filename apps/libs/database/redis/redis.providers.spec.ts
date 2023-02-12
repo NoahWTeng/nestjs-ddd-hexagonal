@@ -2,6 +2,7 @@ jest.mock('redis', () => ({
   createClient: jest.fn().mockImplementation((url: any, options: any) => {
     const conn = {
       on: jest.fn(),
+      quit: jest.fn(),
     };
     return conn;
   }),
@@ -15,15 +16,21 @@ import { REDIS_CONNECTION } from './redis.constant';
 import { RedisClientType, redisdbProviders } from './redis.providers';
 
 describe('RedisProvider', () => {
-  let conn: any;
+  let conn: RedisClientType;
+  let module: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    module = await Test.createTestingModule({
       imports: [ConfigModule.forFeature(redisdbConfig)],
       providers: [...redisdbProviders],
     }).compile();
 
     conn = module.get<RedisClientType>(REDIS_CONNECTION);
+  });
+
+  afterAll(async () => {
+    await conn.quit();
+    await module.close();
   });
 
   it('REDIS_CONNECTION should be defined', () => {

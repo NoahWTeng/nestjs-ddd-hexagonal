@@ -1,18 +1,12 @@
 export enum EUserRoles {
-    admin = 'admin',
-    user = 'user'
+  admin = 'admin',
+  user = 'user',
 }
 
-
 export class UserRolesValueObject {
+  constructor(private readonly pros: EUserRoles) {}
 
-    constructor(private readonly pros: EUserRoles) {
-
-    }
-
-
-    public get role(): EUserRoles {
-        return this.pros
-    }
-
+  public get role(): EUserRoles {
+    return this.pros;
+  }
 }

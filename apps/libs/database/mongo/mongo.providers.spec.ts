@@ -1,5 +1,7 @@
 jest.mock('mongoose', () => ({
-  createConnection: jest.fn().mockImplementation((uri: any, options: any) => ({} as any)),
+  createConnection: jest.fn().mockImplementation((uri: any, options: any) => ({
+    close: jest.fn(),
+  })),
   Connection: jest.fn(),
 }));
 
@@ -11,15 +13,21 @@ import { MONGO_CONNECTION } from './mongo.constant';
 import { mongodbProviders } from './mongo.providers';
 
 describe('MongoProvider', () => {
-  let conn: any;
+  let conn: Connection;
+  let module: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    module = await Test.createTestingModule({
       imports: [ConfigModule.forFeature(mongodbConfig)],
       providers: [...mongodbProviders],
     }).compile();
 
     conn = module.get<Connection>(MONGO_CONNECTION);
+  });
+
+  afterAll(async () => {
+    await conn.close();
+    await module.close();
   });
 
   it('MONGO_CONNECTION should be defined', () => {
