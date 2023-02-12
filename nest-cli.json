@@ -6,13 +6,13 @@
     "webpack": true
   },
   "projects": {
-    "api": {
+    "api-rest": {
       "type": "application",
-      "root": "apps/api",
+      "root": "apps/api-rest",
       "entryFile": "main",
-      "sourceRoot": "apps/api/src",
+      "sourceRoot": "apps/api-rest/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/api/tsconfig.app.json"
+        "tsConfigPath": "apps/api-rest/tsconfig.app.json"
       }
     }
   }
